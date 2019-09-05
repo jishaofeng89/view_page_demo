@@ -9,10 +9,15 @@ class Page3 extends StatefulWidget {
 class _Page3State extends State<Page3> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-       child: Center(
-         child: Text('第三页'),
-       ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('第三页'),
+      ),
+      body: Container(
+        child: Center(
+          child: Text('第三页'),
+        ),
+      ),
     );
   }
 }
