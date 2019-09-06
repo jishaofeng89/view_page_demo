@@ -34,15 +34,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   int _currentPageIndex = 0;
   PageController _pageController = PageController(initialPage: 0);
 
   void _pageChange(int index) {
     setState(() {
-     if(_currentPageIndex != index) {
-       _currentPageIndex = index;
-     } 
+      if (_currentPageIndex != index) {
+        _currentPageIndex = index;
+      }
     });
   }
 
@@ -63,32 +62,53 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('page view demo'),
-      ),
-      body: PageView.builder(
-        onPageChanged: _pageChange,
-        controller: _pageController,
-        itemBuilder: (BuildContext context, int index) {
-          return _pageList[index];
-        },
-        itemCount: 2,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.category),
-            title: Text('首页'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            title: Text('我的'),
-          ),
-        ],
-        currentIndex: _currentPageIndex,
-        onTap: _onTap,
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        body: PageView.builder(
+          onPageChanged: _pageChange,
+          controller: _pageController,
+          itemBuilder: (BuildContext context, int index) {
+            return _pageList[index];
+          },
+          itemCount: 2,
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.category),
+              title: Text('首页'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.message),
+              title: Text('我的'),
+            ),
+          ],
+          currentIndex: _currentPageIndex,
+          onTap: _onTap,
+        ),
       ),
     );
+  }
+
+  Future<bool> _onWillPop() {
+    return showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('提示'),
+            content: new Text('确定退出应用吗？'),
+            actions: <Widget>[
+              new FlatButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: new Text('再看一会'),
+              ),
+              new FlatButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: new Text('退出'),
+              ),
+            ],
+          ),
+        ) ??
+        false;
   }
 }

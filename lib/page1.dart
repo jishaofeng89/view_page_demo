@@ -9,10 +9,15 @@ class Page1 extends StatefulWidget {
 class _Page1State extends State<Page1> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-       child: Center(
-         child: Text('第一页'),
-       ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('第一页'),
+      ),
+      body: Container(
+        child: Center(
+          child: Text('首页'),
+        ),
+      ),
     );
   }
 }

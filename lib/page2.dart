@@ -27,9 +27,14 @@ class _Page2State extends State<Page2> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text('第二页'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('第二页'),
+      ),
+      body: Container(
+        child: Center(
+          child: Text('我的'),
+        ),
       ),
     );
   }
